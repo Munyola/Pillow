@@ -285,10 +285,7 @@ def Draw(im, mode=None):
        must be the same as the image mode.  If omitted, the mode
        defaults to the mode of the image.
     """
-    try:
-        return im.getdraw(mode)
-    except AttributeError:
-        return ImageDraw(im, mode)
+    return ImageDraw(im, mode)
 
 
 # experimental access to the outline API
