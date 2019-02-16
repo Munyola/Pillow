@@ -120,6 +120,7 @@ def nmake_openjpeg(compiler):
 echo Build OpenJPEG
 setlocal
 @echo on
+set CL=/MP
 cd /D %%OPENJPEG%%%(inc_dir)s
 
 %%CMAKE%% -DBUILD_THIRDPARTY:BOOL=OFF -G "NMake Makefiles" .
@@ -137,6 +138,7 @@ def nmake_libs(compiler, bit):
     script = r"""
 echo Build libjpeg
 setlocal
+set CL=/MP
 """ + vc_setup(compiler, bit) + r"""
 cd /D %%JPEG%%
 nmake -f makefile.vc setup-vc6
@@ -263,6 +265,7 @@ def build_ghostscript(compiler, bit):
     script = r"""
 echo Build gs
 setlocal
+set CL=/MP
 """ + vc_setup(compiler, bit) + r"""
 set MSVC_VERSION=""" + {
         "2008": "9",
