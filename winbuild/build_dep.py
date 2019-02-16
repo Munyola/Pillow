@@ -63,7 +63,7 @@ def extract_libs():
 
 def extract_openjpeg(compiler):
     return r"""
-rem build openjpeg
+echo Build OpenJPEG
 setlocal
 @echo on
 cd %%BUILD%%
@@ -117,7 +117,7 @@ def nmake_openjpeg(compiler):
     atts = {'op_ver': '2.1'}
     atts.update(compiler)
     return r"""
-rem build openjpeg
+echo Build OpenJPEG
 setlocal
 @echo on
 cd /D %%OPENJPEG%%%(inc_dir)s
@@ -135,7 +135,7 @@ endlocal
 def nmake_libs(compiler, bit):
     # undone -- pre, makes, headers, libs
     script = r"""
-rem Build libjpeg
+echo Build libjpeg
 setlocal
 """ + vc_setup(compiler, bit) + r"""
 cd /D %%JPEG%%
@@ -147,7 +147,7 @@ copy /Y /B *.lib %%INCLIB%%
 copy /Y /B j*.h %%INCLIB%%
 endlocal
 
-rem Build zlib
+echo Build zlib
 setlocal
 cd /D %%ZLIB%%
 nmake -f win32\Makefile.msc clean
@@ -159,7 +159,7 @@ copy /Y /B zlib.h %%INCLIB%%
 copy /Y /B zconf.h %%INCLIB%%
 endlocal
 
-rem Build webp
+echo Build WebP
 setlocal
 """ + vc_setup(compiler, bit) + r"""
 cd /D %%WEBP%%
@@ -170,10 +170,10 @@ mkdir %%INCLIB%%\webp
 copy /Y /B src\webp\*.h %%INCLIB%%\\webp
 endlocal
 
-rem Build libtiff
+echo Build libtiff
 setlocal
 """ + vc_setup(compiler, bit) + r"""
-rem do after building jpeg and zlib
+echo Do after building jpeg and zlib
 copy %%~dp0\nmake.opt %%TIFF%%
 
 cd /D %%TIFF%%
@@ -195,7 +195,7 @@ def msbuild_freetype(compiler):
 
 def msbuild_freetype_71(compiler):
     return r"""
-rem Build freetype
+echo Build FreeType
 setlocal
 rd /S /Q %%FREETYPE%%\objs
 %%MSBUILD%% %%FREETYPE%%\builds\windows\vc%(vc_version)s\freetype.sln /t:Clean;Build /p:Configuration="Release" /p:Platform=%(platform)s /m
@@ -207,7 +207,7 @@ endlocal
 
 def msbuild_freetype_70(compiler):
     return r"""
-rem Build freetype
+echo Build FreeType
 setlocal
 py -3 %%~dp0\fixproj.py %%FREETYPE%%\builds\windows\vc%(vc_version)s\freetype.sln %(platform)s
 py -3 %%~dp0\fixproj.py %%FREETYPE%%\builds\windows\vc%(vc_version)s\freetype.vcproj %(platform)s
@@ -233,7 +233,7 @@ def build_lcms_70(compiler):
 
     """Build LCMS on VC2008. This version is only 32bit/Win32"""
     return r"""
-rem Build lcms2
+echo Build lcms2
 setlocal
 rd /S /Q %%LCMS%%\Lib
 rd /S /Q %%LCMS%%\Projects\VC%(vc_version)s\Release
@@ -247,7 +247,7 @@ endlocal
 
 def build_lcms_71(compiler):
     return r"""
-rem Build lcms2
+echo Build lcms2
 setlocal
 rd /S /Q %%LCMS%%\Lib
 rd /S /Q %%LCMS%%\Projects\VC%(vc_version)s\Release
@@ -261,7 +261,7 @@ endlocal
 
 def build_ghostscript(compiler, bit):
     script = r"""
-rem Build gs
+echo Build gs
 setlocal
 """ + vc_setup(compiler, bit) + r"""
 set MSVC_VERSION=""" + {
