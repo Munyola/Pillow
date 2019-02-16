@@ -29,7 +29,7 @@ def run_script(params):
         with open(filename, 'w') as f:
             f.write(script)
 
-        command = ['powershell', "./%s" % filename]
+        command = ['powershell', 'Measure-Command {' "./%s" % filename, '}']
         proc = subprocess.Popen(command,
                                 stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE,
