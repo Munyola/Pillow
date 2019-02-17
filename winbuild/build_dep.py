@@ -94,6 +94,7 @@ def header():
     return r"""setlocal
 set MSBUILD=C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe
 set CMAKE="cmake.exe"
+set CMAKE_BUILD_PARALLEL_LEVEL=4
 set INCLIB=%~dp0\depends
 set BUILD=%~dp0\build
 set CL=/MP
