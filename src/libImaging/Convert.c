@@ -540,6 +540,8 @@ rgb2cmyk(UINT8* out, const UINT8* in, int xsize)
 
         printf("max\t%.12f\n", max);
         printf("k\t%.12f\n", k);
+        printf("k\t%.12f\n", 255.0F * k);
+        printf("k\t%.12f\n", (UINT8) 255.0F * k);
 
         // C = (1-R'-K) / (1-K)
         // M = (1-G'-K) / (1-K)
