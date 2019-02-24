@@ -536,11 +536,10 @@ rgb2cmyk(UINT8* out, const UINT8* in, int xsize)
         // C = (1-R'-K) / (1-K)
         // M = (1-G'-K) / (1-K)
         // Y = (1-B'-K) / (1-K)
-        // where 1-K == max
-        *out++ = 255 * (max - r2) / max; // C
-        *out++ = 255 * (max - g2) / max; // M
-        *out++ = 255 * (max - b2) / max; // Y
-        *out++ = 255 * k;                // K
+        *out++ = 255 * (1 - r2 - k) / (1 - k); // C
+        *out++ = 255 * (1 - g2 - k) / (1 - k); // M
+        *out++ = 255 * (1 - b2 - k) / (1 - k); // Y
+        *out++ = 255 * k;                      // K
         in++;
     }
 }
