@@ -2,6 +2,8 @@ from .helper import PillowTestCase, hopper
 
 from PIL import Image
 
+SIZE = (10, 10)
+
 
 class TestImageConvert(PillowTestCase):
 
@@ -230,3 +232,103 @@ class TestImageConvert(PillowTestCase):
         # Assert
         # No change
         self.assert_image_equal(converted_im, im)
+
+    def test_rgb2cmyk_black(self):
+        # Arrange
+        im = Image.new("RGB", SIZE, (0, 0, 0))
+
+        # Act
+        im = im.convert("CMYK")
+
+        # Assert
+        self.assertEqual(im.getpixel((0, 0)), (0, 0, 0, 255))
+
+    def test_rgb2cmyk_white(self):
+        # Arrange
+        im = Image.new("RGB", SIZE, (255, 255, 255))
+
+        # Act
+        im = im.convert("CMYK")
+
+        # Assert
+        self.assertEqual(im.getpixel((0, 0)), (0, 0, 0, 0))
+
+    def test_rgb2cmyk_red(self):
+        # Arrange
+        im = Image.new("RGB", SIZE, (255, 0, 0))
+
+        # Act
+        im = im.convert("CMYK")
+
+        # Assert
+        self.assertEqual(im.getpixel((0, 0)), (0, 255, 255, 0))
+
+    def test_rgb2cmyk_green(self):
+        # Arrange
+        im = Image.new("RGB", SIZE, (0, 255, 0))
+
+        # Act
+        im = im.convert("CMYK")
+
+        # Assert
+        self.assertEqual(im.getpixel((0, 0)), (255, 0, 255, 0))
+
+    def test_rgb2cmyk_blue(self):
+        # Arrange
+        im = Image.new("RGB", SIZE, (0, 0, 255))
+
+        # Act
+        im = im.convert("CMYK")
+
+        # Assert
+        self.assertEqual(im.getpixel((0, 0)), (255, 255, 0, 0))
+
+    def test_rgb2cmyk_yellow(self):
+        # Arrange
+        im = Image.new("RGB", SIZE, (255, 255, 0))
+
+        # Act
+        im = im.convert("CMYK")
+
+        # Assert
+        self.assertEqual(im.getpixel((0, 0)), (0, 0, 255, 0))
+
+    def test_rgb2cmyk_cyan(self):
+        # Arrange
+        im = Image.new("RGB", SIZE, (0, 255, 255))
+
+        # Act
+        im = im.convert("CMYK")
+
+        # Assert
+        self.assertEqual(im.getpixel((0, 0)), (255, 0, 0, 0))
+
+    def test_rgb2cmyk_magenta(self):
+        # Arrange
+        im = Image.new("RGB", SIZE, (255, 0, 255))
+
+        # Act
+        im = im.convert("CMYK")
+
+        # Assert
+        self.assertEqual(im.getpixel((0, 0)), (0, 255, 0, 0))
+
+    def test_rgb2cmyk_purple(self):
+        # Arrange
+        im = Image.new("RGB", SIZE, (128, 0, 128))
+
+        # Act
+        im = im.convert("CMYK")
+
+        # Assert
+        self.assertEqual(im.getpixel((0, 0)), (0, 254, 0, 126))
+
+    def test_rgb2cmyk_darkgoldenrod(self):
+        # Arrange
+        im = Image.new("RGB", SIZE, "darkgoldenrod")
+
+        # Act
+        im = im.convert("CMYK")
+
+        # Assert
+        self.assertEqual(im.getpixel((0, 0)), (0, 69, 239, 70))

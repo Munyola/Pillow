@@ -521,12 +521,26 @@ static void
 rgb2cmyk(UINT8* out, const UINT8* in, int xsize)
 {
     int x;
+    float r2, g2, b2;
+    float k, diff;
     for (x = 0; x < xsize; x++) {
         /* Note: no undercolour removal */
-        *out++ = ~(*in++);
-        *out++ = ~(*in++);
-        *out++ = ~(*in++);
-        *out++ = 0; in++;
+        r2 = *in++ / 255.0;
+        g2 = *in++ / 255.0;
+        b2 = *in++ / 255.0;
+
+        // K = 1-max(R', G', B'))
+        k = 1 - fmaxf(r2, fmaxf(g2, b2));
+
+        // C = (1-R'-K) / (1-K)
+        // M = (1-G'-K) / (1-K)
+        // Y = (1-B'-K) / (1-K)
+        diff = 1 - k;
+        *out++ = 255 * (diff - r2) / diff; // C
+        *out++ = 255 * (diff - g2) / diff; // M
+        *out++ = 255 * (diff - b2) / diff; // Y
+        *out++ = 255 * k;                  // K
+        in++;
     }
 }
 
