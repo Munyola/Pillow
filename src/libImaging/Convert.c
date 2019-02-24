@@ -521,8 +521,8 @@ static void
 rgb2cmyk(UINT8* out, const UINT8* in, int xsize)
 {
     int x;
-    float r2, g2, b2;
-    float k, max;
+    FLOAT32 r2, g2, b2;
+    FLOAT32 k, max;
     for (x = 0; x < xsize; x++) {
         /* Note: no undercolour removal */
         r2 = *in++ / 255.0F;
