@@ -2,7 +2,7 @@ from .helper import PillowTestCase, hopper
 
 from PIL import Image
 
-SIZE = (10, 10)
+SIZE = (1, 1)
 
 
 class TestImageConvert(PillowTestCase):
