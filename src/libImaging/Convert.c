@@ -530,24 +530,24 @@ rgb2cmyk(UINT8* out, const UINT8* in, int xsize)
         b2 = *in++ / 255.0F;
 
         printf("\n");
-        printf("r2\t%.6f\n", r2);
-        printf("g2\t%.6f\n", g2);
-        printf("b2\t%.6f\n", b2);
+        printf("r2\t%.12f\n", r2);
+        printf("g2\t%.12f\n", g2);
+        printf("b2\t%.12f\n", b2);
 
         // K = 1-max(R', G', B'))
         max = MAX(r2, MAX(g2, b2));
         k = 1.0F - max;
 
-        printf("max\t%.6f\n", max);
-        printf("k\t%.6f\n", k);
+        printf("max\t%.12f\n", max);
+        printf("k\t%.12f\n", k);
 
         // C = (1-R'-K) / (1-K)
         // M = (1-G'-K) / (1-K)
         // Y = (1-B'-K) / (1-K)
-        *out++ = 255 * (1 - r2 - k) / (1 - k); // C
-        *out++ = 255 * (1 - g2 - k) / (1 - k); // M
-        *out++ = 255 * (1 - b2 - k) / (1 - k); // Y
-        *out++ = 255 * k;                      // K
+        *out++ = 255.0F * (1.0F - r2 - k) / (1.0F - k); // C
+        *out++ = 255.0F * (1.0F - g2 - k) / (1.0F - k); // M
+        *out++ = 255.0F * (1.0F - b2 - k) / (1.0F - k); // Y
+        *out++ = 255.0F * k;                            // K
         in++;
     }
 }
