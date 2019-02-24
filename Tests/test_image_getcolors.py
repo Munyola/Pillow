@@ -33,7 +33,7 @@ class TestImageGetColors(PillowTestCase):
         self.assertEqual(getcolors("RGB", 100000), 10100)
 
         self.assertEqual(getcolors("RGBA", 16384), 10100)
-        self.assertEqual(getcolors("CMYK", 16384), 10100)
+        self.assertEqual(getcolors("CMYK", 16384), 10085)
         self.assertEqual(getcolors("YCbCr", 16384), 9329)
 
     # --------------------------------------------------------------------

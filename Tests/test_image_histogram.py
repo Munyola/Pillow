@@ -16,5 +16,5 @@ class TestImageHistogram(PillowTestCase):
         self.assertEqual(histogram("P"), (256, 0, 1871))
         self.assertEqual(histogram("RGB"), (768, 4, 675))
         self.assertEqual(histogram("RGBA"), (1024, 0, 16384))
-        self.assertEqual(histogram("CMYK"), (1024, 0, 16384))
+        self.assertEqual(histogram("CMYK"), (1024, 0, 10115))
         self.assertEqual(histogram("YCbCr"), (768, 0, 1908))
