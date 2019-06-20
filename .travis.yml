@@ -23,23 +23,34 @@ matrix:
       name: "PyPy3 Xenial"
       dist: xenial
     - python: '3.7'
+      name: "3.7 Bionic"
+    - python: '3.7'
       name: "3.7 Xenial"
       dist: xenial
     - python: '2.7'
+      name: "2.7 Bionic"
+    - python: '2.7'
       name: "2.7 Xenial"
       dist: xenial
+    - python:  "2.7_with_system_site_packages" # For PyQt4
+      name: "2.7_with_system_site_packages Bionic"
+      services: xvfb
     - python:  "2.7_with_system_site_packages" # For PyQt4
       name: "2.7_with_system_site_packages Xenial"
       services: xvfb
       dist: xenial
     - python: '3.6'
-      name: "3.6 Xenial PYTHONOPTIMIZE=1"
+      name: "3.6 Bionic PYTHONOPTIMIZE=1"
       env: PYTHONOPTIMIZE=1
+    - python: '3.6'
+      name: "3.6 Xenial"
       dist: xenial
     - python: '3.5'
       name: "3.5 Xenial PYTHONOPTIMIZE=2"
       env: PYTHONOPTIMIZE=2
       dist: xenial
+    - python: "3.8-dev"
+      name: "3.8-dev Bionic"
     - python: "3.8-dev"
       name: "3.8-dev Xenial"
       dist: xenial
