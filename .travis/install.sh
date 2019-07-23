@@ -19,6 +19,12 @@ pip install numpy
 # docs only on Python 2.7
 if [ "$TRAVIS_PYTHON_VERSION" == "2.7" ]; then pip install -r requirements.txt ; fi
 
+# To fix AttributeError: 'module' object has no attribute 'SSL_ST_INIT'
+# when installing coveralls-merge
+if [[ $TRAVIS_PYTHON_VERSION == "2.7_with_system_site_packages" ]]; then
+  pip install --upgrade pyopenssl;
+fi
+
 # webp
 pushd depends && ./install_webp.sh && popd
 
