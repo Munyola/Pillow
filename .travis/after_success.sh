@@ -10,13 +10,12 @@ gem install coveralls-lcov
 coveralls-lcov -v -n coverage.filtered.info > coverage.c.json
 
 coverage report
-pip install codecov
 if [[ $TRAVIS_PYTHON_VERSION != "2.7_with_system_site_packages" ]]; then
     # Not working here. Just skip it, it's being removed soon.
     pip install coveralls-merge
     coveralls-merge coverage.c.json
 fi
-codecov
+bash <(curl -s https://codecov.io/bash)
 
 if [ "$TRAVIS_PYTHON_VERSION" == "2.7" ] && [ "$DOCKER" == "" ]; then
     # Coverage and quality reports on just the latest diff.

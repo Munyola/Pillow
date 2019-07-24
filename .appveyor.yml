@@ -80,8 +80,10 @@ test_script:
 #- '%PYTHON%\%EXECUTABLE% test-installed.py -v -s %TEST_OPTIONS%' TODO TEST_OPTIONS with pytest?
 
 after_test:
-- pip install codecov
-- codecov --file coverage.xml --name %PYTHON%
+- ps: |
+    $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+    Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+    bash codecov.sh -f 'coverage.xml' -n %PYTHON%
 
 matrix:
   fast_finish: true
