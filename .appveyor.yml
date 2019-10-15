@@ -13,7 +13,6 @@ environment:
   TEST_OPTIONS:
   DEPLOY: YES
   matrix:
-  - PYTHON: C:/Python38
   - PYTHON: C:/Python38-x64
   - PYTHON: C:/Python37
   - PYTHON: C:/Python37-x64
