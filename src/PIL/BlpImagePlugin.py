@@ -118,8 +118,7 @@ def decode_dxt3(data):
         # Decode next 16-byte block.
         bits = struct.unpack_from("<8B", block)
         color0, color1 = struct.unpack_from("<HH", block, 8)
-
-        code, = struct.unpack_from("<I", block, 12)
+        (code,) = struct.unpack_from("<I", block, 12)
 
         r0, g0, b0 = unpack_565(color0)
         r1, g1, b1 = unpack_565(color1)
@@ -176,8 +175,7 @@ def decode_dxt5(data):
         alphacode2 = bits[0] | (bits[1] << 8)
 
         color0, color1 = struct.unpack_from("<HH", block, 8)
-
-        code, = struct.unpack_from("<I", block, 12)
+        (code,) = struct.unpack_from("<I", block, 12)
 
         r0, g0, b0 = unpack_565(color0)
         r1, g1, b1 = unpack_565(color1)
@@ -255,19 +253,19 @@ class BlpImageFile(ImageFile.ImageFile):
         self.tile = [(decoder, (0, 0) + self.size, 0, (self.mode, 0, 1))]
 
     def _read_blp_header(self):
-        self._blp_compression, = struct.unpack("<i", self.fp.read(4))
-
-        self._blp_encoding, = struct.unpack("<b", self.fp.read(1))
-        self._blp_alpha_depth, = struct.unpack("<b", self.fp.read(1))
-        self._blp_alpha_encoding, = struct.unpack("<b", self.fp.read(1))
-        self._blp_mips, = struct.unpack("<b", self.fp.read(1))
+        (self._blp_compression,) = struct.unpack("<i", self.fp.read(4))
+        (self._blp_encoding,) = struct.unpack("<b", self.fp.read(1))
+        (self._blp_alpha_depth,) = struct.unpack("<b", self.fp.read(1))
+        (self._blp_alpha_encoding,) = struct.unpack("<b", self.fp.read(1))
+        (self._blp_mips,) = struct.unpack("<b", self.fp.read(1))
 
         self._size = struct.unpack("<II", self.fp.read(8))
 
         if self.magic == b"BLP1":
-            # Only present for BLP1
-            self._blp_encoding, = struct.unpack("<i", self.fp.read(4))
-            self._blp_subtype, = struct.unpack("<i", self.fp.read(4))
+            (self._blp_encoding,) = struct.unpack(  # Only present for BLP1
+                "<i", self.fp.read(4)
+            )
+            (self._blp_subtype,) = struct.unpack("<i", self.fp.read(4))
 
         self._blp_offsets = struct.unpack("<16I", self.fp.read(16 * 4))
         self._blp_lengths = struct.unpack("<16I", self.fp.read(16 * 4))
@@ -297,19 +295,19 @@ class _BLPBaseDecoder(ImageFile.PyDecoder):
         return ret
 
     def _read_blp_header(self):
-        self._blp_compression, = struct.unpack("<i", self.fd.read(4))
-
-        self._blp_encoding, = struct.unpack("<b", self.fd.read(1))
-        self._blp_alpha_depth, = struct.unpack("<b", self.fd.read(1))
-        self._blp_alpha_encoding, = struct.unpack("<b", self.fd.read(1))
-        self._blp_mips, = struct.unpack("<b", self.fd.read(1))
+        (self._blp_compression,) = struct.unpack("<i", self.fd.read(4))
+        (self._blp_encoding,) = struct.unpack("<b", self.fd.read(1))
+        (self._blp_alpha_depth,) = struct.unpack("<b", self.fd.read(1))
+        (self._blp_alpha_encoding,) = struct.unpack("<b", self.fd.read(1))
+        (self._blp_mips,) = struct.unpack("<b", self.fd.read(1))
 
         self.size = struct.unpack("<II", self.fd.read(8))
 
         if self.magic == b"BLP1":
-            # Only present for BLP1
-            self._blp_encoding, = struct.unpack("<i", self.fd.read(4))
-            self._blp_subtype, = struct.unpack("<i", self.fd.read(4))
+            (self._blp_encoding,) = struct.unpack(  # Only present for BLP1
+                "<i", self.fd.read(4)
+            )
+            (self._blp_subtype,) = struct.unpack("<i", self.fd.read(4))
 
         self._blp_offsets = struct.unpack("<16I", self.fd.read(16 * 4))
         self._blp_lengths = struct.unpack("<16I", self.fd.read(16 * 4))
@@ -327,7 +325,7 @@ class BLP1Decoder(_BLPBaseDecoder):
                 _data = BytesIO(self.fd.read(self._blp_lengths[0]))
                 while True:
                     try:
-                        offset, = struct.unpack("<B", _data.read(1))
+                        (offset,) = struct.unpack("<B", _data.read(1))
                     except struct.error:
                         break
                     b, g, r, a = palette[offset]
@@ -346,7 +344,7 @@ class BLP1Decoder(_BLPBaseDecoder):
     def _decode_jpeg_stream(self):
         from PIL.JpegImagePlugin import JpegImageFile
 
-        jpeg_header_size, = struct.unpack("<I", self.fd.read(4))
+        (jpeg_header_size,) = struct.unpack("<I", self.fd.read(4))
         jpeg_header = self.fd.read(jpeg_header_size)
         self.fd.read(self._blp_offsets[0] - self.fd.tell())  # What IS this?
         data = self.fd.read(self._blp_lengths[0])
@@ -372,7 +370,7 @@ class BLP2Decoder(_BLPBaseDecoder):
                 _data = BytesIO(self.fd.read(self._blp_lengths[0]))
                 while True:
                     try:
-                        offset, = struct.unpack("<B", _data.read(1))
+                        (offset,) = struct.unpack("<B", _data.read(1))
                     except struct.error:
                         break
                     b, g, r, a = palette[offset]

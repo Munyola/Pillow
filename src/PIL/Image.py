@@ -1961,12 +1961,12 @@ class Image(object):
         else:
             rotn_center = center
 
-        angle = -math.radians(angle)
+        angle = -(math.radians(angle))
         matrix = [
             round(math.cos(angle), 15),
             round(math.sin(angle), 15),
             0.0,
-            round(-math.sin(angle), 15),
+            round(-(math.sin(angle)), 15),
             round(math.cos(angle), 15),
             0.0,
         ]
@@ -3227,7 +3227,7 @@ class Exif(MutableMapping):
                             continue
                         size = count * unit_size
                         if size > 4:
-                            offset, = struct.unpack("<L", data)
+                            (offset,) = struct.unpack("<L", data)
                             data = ifd_data[offset - 12 : offset + size - 12]
                         else:
                             data = data[:size]
@@ -3256,8 +3256,7 @@ class Exif(MutableMapping):
                             ">HHL4s", ifd_data[i * 12 + 2 : (i + 1) * 12 + 2]
                         )
                         if ifd_tag == 0x1101:
-                            # CameraInfo
-                            offset, = struct.unpack(">L", data)
+                            (offset,) = struct.unpack(">L", data)  # CameraInfo
                             self.fp.seek(offset)
 
                             camerainfo = {"ModelID": self.fp.read(4)}

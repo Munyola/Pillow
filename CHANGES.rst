@@ -20,7 +20,7 @@ Changelog (Pillow)
 - Changed default frombuffer raw decoder args #1730
   [radarhere]
 
-6.2.1 (unreleased)
+6.2.1 (2019-10-21)
 ------------------
 
 - Add support for Python 3.8 #4141

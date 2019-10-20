@@ -183,12 +183,12 @@ class TestImageTransformAffine(PillowTestCase):
     def _test_rotate(self, deg, transpose):
         im = self._test_image()
 
-        angle = -math.radians(deg)
+        angle = -(math.radians(deg))
         matrix = [
             round(math.cos(angle), 15),
             round(math.sin(angle), 15),
             0.0,
-            round(-math.sin(angle), 15),
+            round(-(math.sin(angle)), 15),
             round(math.cos(angle), 15),
             0.0,
             0,
