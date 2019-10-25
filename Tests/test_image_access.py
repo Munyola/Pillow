@@ -76,8 +76,8 @@ class TestImagePutPixel(AccessTest):
         self.assertEqual(im1.getpixel((0, 0)), im1.getpixel((-width, -height)))
         self.assertEqual(im1.getpixel((-1, -1)), im1.getpixel((width - 1, height - 1)))
 
-        for y in range(-1, -im1.size[1] - 1, -1):
-            for x in range(-1, -im1.size[0] - 1, -1):
+        for y in range(-1, -(im1.size[1]) - 1, -1):
+            for x in range(-1, -(im1.size[0]) - 1, -1):
                 pos = x, y
                 im2.putpixel(pos, im1.getpixel(pos))
 
@@ -86,8 +86,8 @@ class TestImagePutPixel(AccessTest):
         im2 = Image.new(im1.mode, im1.size, 0)
         im2.readonly = 1
 
-        for y in range(-1, -im1.size[1] - 1, -1):
-            for x in range(-1, -im1.size[0] - 1, -1):
+        for y in range(-1, -(im1.size[1]) - 1, -1):
+            for x in range(-1, -(im1.size[0]) - 1, -1):
                 pos = x, y
                 im2.putpixel(pos, im1.getpixel(pos))
 
@@ -99,8 +99,8 @@ class TestImagePutPixel(AccessTest):
         pix1 = im1.load()
         pix2 = im2.load()
 
-        for y in range(-1, -im1.size[1] - 1, -1):
-            for x in range(-1, -im1.size[0] - 1, -1):
+        for y in range(-1, -(im1.size[1]) - 1, -1):
+            for x in range(-1, -(im1.size[0]) - 1, -1):
                 pix2[x, y] = pix1[x, y]
 
         self.assert_image_equal(im1, im2)
